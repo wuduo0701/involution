@@ -43,6 +43,8 @@ function myPromise(fn) {
 
 myPromise.prototype.then = function (success, error) {
   const self = this
+
+  // 参数校验，确保为函数
   success =
     typeof success === 'function'
       ? success
@@ -103,24 +105,53 @@ myPromise.prototype.then = function (success, error) {
   // 返回这个包装的Promise
   return thenPromise
 }
+// 接收一个Promise数组，数组中如有非Promise项，则此项当做成功
+// 如果所有Promise都成功，则返回成功结果数组
+// 如果有一个Promise失败，则返回这个失败结果
+myPromise.all = function (promises) {
+  let result = [],
+    count = 0
+
+  return new Promise((resolve, reject) => {
+    const judgePromise = (value, index) => {
+      result.push(value)
+      count++
+      if (count === promises.length) resolve(result)
+    }
+
+    promises.forEach((promise, index) => {
+      if (promise instanceof myPromise) {
+        promise.then(
+          (res) => {
+            judgePromise(res, index) // 是否resolve
+          },
+          // 如果有一个Promise失败，则返回这个失败结果
+          (err) => reject(err)
+        )
+      } else {
+        judgePromise(res, index) // 是否resolve
+      }
+    })
+  })
+}
 
 // 执行自定义Promise
-// new myPromise((resolve, reject) => {
-//   setTimeout(() => {
-//     resolve(100)
-//     reject(500)
-//   }, 1000)
-// }).then(
-//   (value) => {
-//     console.log(value)
-//   },
-//   (error) => {
-//     console.log(error)
-//   }
-// )
-const test3 = new Promise((resolve, reject) => {
-  // resolve(100) // 输出 状态：成功 值： 200
-  reject(100) // 输出 状态：成功 值：300
+const test1 = new myPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(100)
+  }, 1000)
+}).then(
+  (value) => {
+    console.log(value)
+  },
+  (error) => {
+    console.log(error)
+  }
+)
+
+const test2 = new myPromise((resolve, reject) => {
+  resolve(100) // 输出 状态：成功 值： 200
+  // reject(100) // 输出 状态：成功 值：300
 })
   .then(
     (res) => 2 * res,
@@ -130,3 +161,24 @@ const test3 = new Promise((resolve, reject) => {
     (res) => console.log('成功', res),
     (err) => console.log('失败', err)
   )
+
+// 创建 test1 和 test2，但不要在这里调用 then 方法
+const test3 = new myPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(100)
+  }, 1000)
+})
+
+const test4 = new myPromise((resolve, reject) => {
+  resolve(300)
+})
+
+// 使用 myPromise.all 来处理所有 promises
+myPromise.all([test3, test4]).then(
+  (results) => {
+    console.log('所有 promises 已完成', results)
+  },
+  (error) => {
+    console.log('一个或多个 promises 失败', error)
+  }
+)
