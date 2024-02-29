@@ -1,3 +1,4 @@
+// FIXME:注意不要用箭头函数
 // 定义三种状态
 const PENDING = 'pending' // 进行中
 const FULLFILLED = 'fullfilled' // 已完成
