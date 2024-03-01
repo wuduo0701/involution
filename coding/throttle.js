@@ -1,4 +1,4 @@
-// 函数节流：将原本1秒可能执行10次的函数，节流成1秒只执行2次-3次
+// 函数节流：n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效。举例：滚动加载
 
 // NOTE:函数逻辑
 // 1. 定义1个timer和首次执行判断firstTime
@@ -36,6 +36,6 @@ for (let index = 0; index < 10; index++) {
   throttleFn()
 }
 // 运用
-window.onresize = throttle(function () {
-  console.log('window onresize')
-}, 500)
+// window.onresize = throttle(function () {
+//   console.log('window onresize')
+// }, 500)

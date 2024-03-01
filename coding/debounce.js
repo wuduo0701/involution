@@ -1,15 +1,17 @@
-// 防抖：函数在规定时间结束触发才会被再次调用，如果期间被使用，则重置进行计算。如：索框只有用户在输入完毕后才去服务器执行查询。
+// 防抖： 秒后在执行该事件，若在 n 秒内被重复触发，则重新计时。如：input搜索框，窗口大小resize。
 // NOTE:函数思路
 //1.有timer时先清楚定时，然后重新计时。等计时结束后执行函数
 function debounce(fn, timeout = 500) {
   let timer = null
-  self = this
   return function () {
+    let self = this, // 保存 this指向
+      args = arguments // arguments 是一个类数组对象，它包含了函数被调用时传入的所有参数，只在函数体内用
+
     if (timer) {
       clearTimeout(timer)
     }
     timer = setTimeout(() => {
-      fn.call(self, ...arguments)
+      fn.apply(self, args)
     }, timeout)
   }
 }
