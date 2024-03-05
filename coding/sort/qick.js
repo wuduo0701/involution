@@ -6,7 +6,7 @@
 // 3.通过递归直至两边都不可分割为止，这样就变成有序序列了
 function quickSort(Array) {
   const sort = (arr) => {
-    if (arr.length <= 0) return arr
+    if (arr.length <= 1) return arr
     let left = [],
       right = [],
       middle = arr[0]
