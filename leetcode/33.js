@@ -18,7 +18,7 @@
 // 输出：-1
 
 var search = function (nums, target) {
-  if (nums.length === 0) return
+  if (nums.length === 0) return -1
   if (nums.length === 1) return nums[0] === target ? 0 : -1
 
   let left = 0,
