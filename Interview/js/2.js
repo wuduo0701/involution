@@ -137,23 +137,31 @@
 // dog2.eat()
 // console.log(typeof dog1.constructor) // function
 
-class Animal {
-  constructor(name) {
-    this.name = name
-    this.color = ['red']
-  }
-  eat() {
-    console.log(this.name + ' is eat')
-  }
+// class Animal {
+//   constructor(name) {
+//     this.name = name
+//     this.color = ['red']
+//   }
+//   eat() {
+//     console.log(this.name + ' is eat')
+//   }
+// }
+// class Dog extends Animal {
+//   constructor(name) {
+//     super(name)
+//   }
+// }
+// var dog1 = new Dog('dog1')
+// var dog2 = new Dog('dog2')
+// dog1.color.push('yellow')
+// console.log(dog1.name) // 输出dog1
+// console.log(dog2.color) // 输出['red']
+// dog2.eat() // 输出dog2 is eat
+
+function myNew(Fun, ...args) {
+  const obj = {}
+  obj.__proto__ = Fun.prototype
+  let result = obj.apply(Fun, args)
+  // 4.根据返回值判断
+  return result instanceof Object ? result : obj
 }
-class Dog extends Animal {
-  constructor(name) {
-    super(name)
-  }
-}
-var dog1 = new Dog('dog1')
-var dog2 = new Dog('dog2')
-dog1.color.push('yellow')
-console.log(dog1.name) // 输出dog1
-console.log(dog2.color) // 输出['red']
-dog2.eat() // 输出dog2 is eat
