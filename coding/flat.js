@@ -78,6 +78,7 @@ const flat7 = (array) => {
   str = `[${str}]`
   return JSON.parse(str)
 }
+
 console.log(flat1(array, 3)) // es6 语法
 console.log(flat2(array)) // toString + split。转成string后进行切割从新转化为数组
 console.log(flat3(array)) // 利用递归进行处理，遇到数组就继续扁平化
@@ -85,3 +86,28 @@ console.log(flat4(array)) // (reduce版本)利用递归进行处理
 console.log(flat5(array)) // 利用扩展运算符
 // console.log(flat6(array)) // 【reduce版本】利用扩展运算符
 console.log(flat7(array)) // 通过JSON.stringify + JSON.parse 来实现
+
+// FIXME:可自定义递归深度解法
+function flatternArray(array, deep) {
+  // 解法1：
+  // return array.flat(deep)
+  // 解法2：使用递归，在达到深度后，停止递归
+  let result = []
+  for (let i = 0; i < array.length; i++) {
+    let item = array[i]
+    if (Array.isArray(item) && deep > 0) {
+      result = result.concat(flatternArray(item, deep - 1))
+    } else {
+      result.push(item)
+    }
+  }
+  return result
+  // 解法3：reduce版本的递归
+  // return array.reduce((prev, cur) => {
+  //   return prev.concat(
+  //     Array.isArray(cur) && deep > 1 ? flatternArray(cur, deep - 1) : cur
+  //   )
+  // }, [])
+}
+console.log(flatternArray([1, 2, 3, [4, 5]], 1)) //[1,2,3,4,5]
+console.log(flatternArray([1, 2, 3, [4, [5]]], 1)) //[1,2,3,4,[5]]
