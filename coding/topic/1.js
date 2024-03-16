@@ -1,15 +1,12 @@
-//写一个group函数可以对数组进行分类，接收一个函数作为参数，返回一个对象.
+//计算乘积除以当前项
+//传参 [1,2,3,4]
+//输出 [24,12,8,6]
 
-//调用如下
-
-array = [0, 1, 2, 3, 4]
-
-ruleFn = (item, index, array) => {
-  return item % 2 == 0 ? 'odd' : 'even'
+function Area(arr) {
+  let area = arr.reduce((pre, cur) => {
+    return pre * cur
+  }, 1)
+  return arr.map((item) => area / item)
 }
 
-array.group(ruleFn)
-
-//结果如下
-
-// {odd:[1,3],even:[0,2,4]}
+console.log(Area([1, 2, 3, 4]))

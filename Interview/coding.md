@@ -43,15 +43,25 @@
 
 - console.log(fn([1, 2, 3, 4, 5], 2)) //结果为[[1,2],[3,4],[5]]
 
-```js
-// NOTE:关键在这个i+=num，这样就是每隔num进行迭代
-function fn(arr, num) {
-  if (arr.length < num) return arr
-  const result = []
-  for (let i = 0; i < arr.length; i += num) {
-    result.push(arr.slice(i, i + num))
+  ```js
+  // NOTE:关键在这个i+=num，这样就是每隔num进行迭代
+  function fn(arr, num) {
+    if (arr.length < num) return arr
+    const result = []
+    for (let i = 0; i < arr.length; i += num) {
+      result.push(arr.slice(i, i + num))
+    }
+    return result
   }
-  return result
-}
-console.log(fn([1, 2, 3, 4, 5], 2)) //结果为[[1,2],[3,4],[5]]
-```
+  console.log(fn([1, 2, 3, 4, 5], 2)) //结果为[[1,2],[3,4],[5]]
+  ```
+
+- 计算乘积除以当前项 //传参 [1,2,3,4] //输出 [24,12,8,6]
+  ```js
+  function Area(arr) {
+    let area = arr.reduce((pre, cur) => {
+      return pre * cur
+    }, 1)
+    return arr.map((item) => area / item)
+  }
+  ```
