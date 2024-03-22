@@ -132,8 +132,102 @@
 
 ## 页面渲染
 
+### 资源解析
+
+- 查看响应头的信息，根据不同的指示做对应处理，比如重定向，存储 cookie，解压 gzip，缓存资源等等
+- 查看响应头的 Content-Type 的值，根据不同的资源类型采用不同的解析方式
+
+页面在拿到 index.html 文件后开始解析里面代码，并遇到 js/css/image 等静态资源时，就向服务器端去请求下载（会使用多线程下载、但是每个资源的大小不一致，所以看起来不是顺序执行的）
+
+### 页面渲染
+
+> https://febook.hzfe.org/awesome-interview/book2/browser-render-mechanism
+> 浏览器是边解析边渲染的过程，即构建 DOM 树和 CSS 树是同时进行的。在遇到 css 会同步解析 CSS 树。但是遇到 script 脚本则会阻塞渲染，会先下载 js 并执行完成后，再继续后续操作（防止修改 dom）。可用 async、defer、module
+
+![alt text](/assets/images/HTTP/image.png)
+
+1. 解析 HTML，构建 DOM 树
+2. 解析 CSS ，生成 CSS 规则树
+3. 合并 DOM 树和 CSS 规则树，生成 render 树
+4. 布局 render 树（ Layout / reflow ），负责各元素尺寸、位置的计算 `涉及回流`
+5. 绘制 render 树（ paint ），绘制页面像素信息 `涉及重绘`
+6. 渲染
+
+- Javascript 脚本
+  ![alt text](/assets/images/HTTP/image1.png)
+  由于 js 可以操作 dom，所以在 html 解析到 Javascript 脚本时会停止对 dom 的解析
+  `解决办法`：
+
+  1. 【async 异步执行】`<script src="./test1.js" async></script>`。适用于 js 与 dom 无关、或与其他 js 文件无关的情况。
+     `！！特点`：添加此标签后，js 文件下载后会立即异步执行。所以最好不要和 dom 操作有关系，并且如果多个 js 脚本都添加`async`标签，也无法保证执行顺序，所以 js 之间不要有关系
+  2. 【defer 延迟执行】`<script src="./test2.js" defer></script>`。适用于 js 中涉及到 dom 的操作或与其他的 js 有关系的情况
+     `！！特点`：js 还是会立即下载，但是会延迟执行，等 dom 解析完成后，在按 js 的顺序执行。
+  3. 【module 模块化加载】
+     1. 默认是异步的，效果等同于 defer
+     2. 会下载关联模块化导入的内容，但是执行还是会放在 dom 解析完成后
+     3. 严格模式下运行
+     4. 减少 tree sharking
+
+- 回流
+  > 发生在布局 render 树的步骤，浏览器需要重新计算并渲染部分文档的过程
+  > 第一次渲染一定有回流
+  > 回流一定涉及重绘
+  - 回流的一些操作
+    1. 页面首次渲染
+    2. 浏览器窗口大小发生改变
+    3. 手动操作 dom
+    4. 激活伪类元素
+    5. 元素尺寸或位置发生改变
+    6. 元素字体大小、内容变化
+    7. 查询某些属性或调用某些方法
+  - 会导致回流的方法
+    1. clientWidth、clientHeight、clientTop、clientLeft
+    2. offsetWidth、offsetHeight、offsetTop、offsetLeft
+    3. scrollWidth、scrollHeight、scrollTop、scrollLeft
+    4. scrollIntoView()、scrollIntoViewIfNeeded()
+    5. getComputedStyle()
+    6. getBoundingClientRect()
+    7. scrollTo()
+- 重绘
+  > 当页面中元素样式的改变，并重新绘制它的过程
+  > 第一次渲染一定有重绘
+- 如何提高渲染进程？
+  - 减少渲染中的回流重绘（回流比重绘的代价高）
+    - 透过 will-change 设定成独立的图层，因为独立的图层可以避免该节点渲染行为影像到其他节点
+    - 使用 opacity 来改变元素的能见度
+    - 避免频繁操作 dom
+    - 使用 CSS Transforms 和 Animations
+    - 减少 v-if 的使用
+  - 优化影响渲染的资源
+    - 为 JS 添加 async 和 defer 属性
+    - JS 通常放在页面底部，防止阻塞渲染
+    - 关键 CSS 资源放在头部加载
+    - 减少回流和重绘的次数
+
 # 补充
 
 ## 反向代理
 
+> 【客户端不知道代理服务器的存在】客户端通过访问代理服务器，代理服务器去访问并获取目标服务器的资源给客户端。
+
+方便统一管理，如果我们需要访问不同的服务器，就需要客户端一个个去连接。但是如果有反向代理的存在，客户端只需要和这个反向代理服务器连接就行，客户端去给我们请求
+
+### 正向代理
+
+> 【客户端知道代理服务器的存在，自己管理代理服务器的，如 `Clash` 这种翻墙代理】客户端通过访问代理服务器，代理服务器去访问并获取目标服务器的资源给客户端
+
 ## 负载均衡
+
+> 应付业务负责，高请求等的业务。单台服务器以及很难满足需求了，需要多台服务器通过负载均衡的方式组成集群，进行性能扩展。而且多台服务器组成，如果其中有一个宕机的话也不会造成业务挂了。
+
+```conf
+# CRM商机管理分流
+upstream opp-manage-stream {
+  server dlaudit8-dlauditv8online1.daili.svc.ht2.n.jd.local weight=10 max_fails=2 fail_timeout=30s;
+  server dlaudit8-dlauditv8online2.daili.svc.lf10.n.jd.local weight=10 max_fails=2 fail_timeout=30s;
+}
+
+location /business/ {
+  proxy_pass http://opp-manage-stream/;
+}
+```
