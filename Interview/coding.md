@@ -252,4 +252,109 @@
   }) //有输出
   ```
 
+- 查看输出结果：promise 相关：0 1 2 3 4 5 6
+
+  ```js
+  <!-- 输出0 1 2 3 4 5 6 -->
+  Promise.resolve()
+    .then(() => {
+      console.log(0)
+      return Promise.resolve(4)
+    })
+    .then((res) => {
+      console.log(res)
+    })
+
+  Promise.resolve()
+    .then(() => {
+      console.log(1)
+    })
+    .then(() => {
+      console.log(2)
+    })
+    .then(() => {
+      console.log(3)
+    })
+    .then(() => {
+      console.log(5)
+    })
+    .then(() => {
+      console.log(6)
+    })
+  ```
+
+- 千分位转化
+
+  - toLocaleString
+  - 转化成字符串后，通过正则表达式`/\d{3}(?=\d)/g`进行替换，每隔 3 个数字后的 d，替换成'$&,'。 str.replace(/\d{3}(?=\d)/g, '$&,'
+  - 转化成字符串数组后，通过 for 循环添加
+
+  ```js
+  function fun(num) {
+    if (num.length <= 3) return num
+    // 方法1：
+    // return num.toLocaleString()
+
+    // 方法2：
+    // let str = (num + '').split('').reverse().join('')
+    // let fomartStr = str.replace(/\d{3}(?=\d)/g, '$&,')
+    // return fomartStr.split('').reverse().join('')
+
+    // 方法3：
+    let str = (num + '').split('').reverse()
+    let newStr = ''
+    str.forEach((item, index) => {
+      newStr += (index + 1) % 3 === 0 && index !== 0 ? item + ',' : item
+    })
+    return newStr.split('').reverse().join('')
+  }
+  console.log(fun(11112))
+  ```
+
+- 利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串 aabcccccaaa 会变为 a5b1c5
+
+  ```js
+  // 利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a5b1c5
+  // 如果需要是连续的呢？比如aabcccccaaa会变为a2b1c5a3
+  // 再优化一下，如果只有一个元素那就将1给去掉
+  function transform(str) {
+    if (str.length <= 1) return str
+    // let strArr = str.split(''),
+    //   map = {},
+    //   result = ''
+    // strArr.forEach((item, index) => {
+    //   lastChar = item
+    //   if (map[item] === undefined) {
+    //     map[item] = 1
+    //   } else {
+    //     map[item]++
+    //   }
+    // })
+    // for (let i in map) {
+    //   result += i + map[i]
+    // }
+    // return result
+
+    let strArr = str.split(''),
+      result = '',
+      lastChar = strArr[0],
+      len = 1
+
+    for (let i = 1; i < strArr.length; i++) {
+      if (i === strArr.length - 1) result += lastChar + (len + 1)
+      if (lastChar === strArr[i]) {
+        len++
+      } else {
+        // if (len > 1) result += lastChar + len
+        result += lastChar + len
+        len = 1
+      }
+      lastChar = strArr[i]
+    }
+    return result
+  }
+
+  console.log(transform('aabcccccaaa'))
+  ```
+
 -
