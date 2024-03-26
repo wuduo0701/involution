@@ -69,29 +69,31 @@
   - call、apply、bind 时
 - new 一个对象的过程
 
-  1. 创建一个新的空对象
-  2. 新对象的原型链（`__proto__`）指向构造函数的原型（`prototype`）
-  3. 构造函数的 this 指向新对象，并调用构造函数
-  4. 如果上面的调用结果为对象`对同instanceof判断`，则返回这个对象，否则为新对象
+  - 具体过程
+    1. 创建一个新的空对象
+    2. 新对象的原型链（`__proto__`）指向构造函数的原型（`prototype`）
+    3. 构造函数的 this 指向新对象，并调用构造函数
+    4. 如果上面的调用结果为对象`对instanceof判断`，则返回这个对象，否则为新对象
+  - 实现代码
 
-  ```js
-  function myNew(fn, ...args) {
-    let obj = {}
-    obj.__proto__ = fn.prototype
-    const result = fn.apply(obj, args)
-    return result instanceof Object ? result : obj
-  }
+    ```js
+    function myNew(fn, ...args) {
+      let obj = {}
+      obj.__proto__ = fn.prototype
+      const result = fn.apply(obj, args)
+      return result instanceof Object ? result : obj
+    }
 
-  // 示例使用
-  function Person(name, age) {
-    this.name = name
-    this.age = age
-  }
+    // 示例使用
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
 
-  const person = myNew(Person, 'Alice', 25)
-  console.log(person.name) // Alice
-  console.log(person.age) // 25
-  ```
+    const person = myNew(Person, 'Alice', 25)
+    console.log(person.name) // Alice
+    console.log(person.age) // 25
+    ```
 
 - 节流和防抖
 
@@ -158,6 +160,7 @@
   ```
 
 - 如何创造一个自定义事件
+
   ```js
   // 创建自定义事件
   const myEvent = new CustomEvent('myCustomEvent', {
@@ -166,9 +169,19 @@
     cancelable: false
   })
   ```
+
 -
 
 ## CSS 相关
+
+- [BFC](/Interview/CSS/1.md)
+- [盒子模型](/Interview/CSS/1.md)
+- [flex](/Interview/CSS/flex.md)
+  - `flex:1 = flex: 1 1 0%` 放大为 1，缩小为 1，预占尺寸为 0。即均匀分配空间，既可以放大（有多余空间就放大），也可以缩小（空间不够就缩小），不预占任何空间
+  - `flex: 2 = flex: 1 1 0%` 放大为 2，缩小为 1，预占尺寸为 0。即两倍速度放大，等比例缩小，不预占任何空间
+  - `flex: auto = flex: 1 1 auto` 放大为 1，缩小为 1，自动预占（放大缩小前）空间
+  - `flex: none = flex: 0 0 auto` 不放大缩小，自动预占空间。常用于固定尺寸不伸缩
+- 布局
 
 ## 浏览器
 
@@ -178,9 +191,12 @@
 
 ## HTTP
 
-- 输入 url 到敲下回车发生了什么
+- [输入 url 到敲下回车发生了什么](/Interview/HTTP/url.md)
 - 为什么 TCP 握手不是两次？
   TCP 两次握手的话，服务器并不知道客户端的接收能力是否完好
+- http1.1、http2、http3
+- TCP 三次握手、四次挥手
+- TCP 和 UDP 的区别
 -
 
 ## Node 服务
@@ -189,13 +205,27 @@
 
 ## Vue
 
+## React
+
 ## Vite 相关
 
 - 比如你说你了解 vite，那么你是如何学习的 vite 的，你在项目中为什么会选择 vite 而不是 webpack？有没有写过具体的报告出来？
 - vite 对比其他打包工具有什么优势缺点？
 - 如果 vite 打包大文件性能会不会有影响？
+  - 在开发环境速度并不会有太大影响。
+    - vite 并不会进行打包，实时编译的。相比于 webpack 每次启动需要打包，vite 的按需编译会更有优势，它可以在加载到大文件时在按需加载
+    - vite 采用了 `es moudles` 预加载依赖和按需加载源码的策略。
+    - 存在缓存策略，如果大文件已经被加载过来，命中缓存后会更加快速
+  - 生产环境会有影响
+    - 生产环境 vite 是使用 rollup 进行打包的，处理大文件时会变慢。因为需要代码分析，压缩和拆分
+    -
+- tree shaking 原理
+- vite 的底层原理
+- [Vite 为什么比 Webpack 快](/Interview/Vite/1.md)
+- [Vite 的热更新原理](/Interview/Vite/hmr.md)
+- [生产环境下为何不用 ESBuild 打包？](/Interview/Vite/1.md)
 
-## React
+## webpack
 
 ## 性能优化
 
@@ -212,3 +242,5 @@
 - 为什么要做微前端？
 - 微前端原理是什么？怎么做隔离的？
 - 为啥选 Qiankun？不能 iframe？
+
+## 设计模式

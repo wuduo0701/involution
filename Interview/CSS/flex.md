@@ -35,4 +35,7 @@
 - flex-basis
   > 元素在主轴上的初始(在元素伸缩前)尺寸
 - flex（复合属性：放大、缩小、初始尺寸的合计）
+  - flex: 1 = flex: 1 1 0% 不放大缩小、
+  - flex: 2 = flex: 2 1 0%
+  - flex: auto = flex: 1 1 auto
 - align-self
