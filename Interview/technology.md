@@ -170,7 +170,8 @@
   })
   ```
 
--
+- SSE 和 websocket
+- Es Module 和 CommonJs
 
 ## CSS 相关
 
@@ -181,7 +182,7 @@
   - `flex: 2 = flex: 1 1 0%` 放大为 2，缩小为 1，预占尺寸为 0。即两倍速度放大，等比例缩小，不预占任何空间
   - `flex: auto = flex: 1 1 auto` 放大为 1，缩小为 1，自动预占（放大缩小前）空间
   - `flex: none = flex: 0 0 auto` 不放大缩小，自动预占空间。常用于固定尺寸不伸缩
-- 布局
+- [布局](/Interview/CSS/布局.md)
 
 ## 浏览器
 
@@ -195,9 +196,10 @@
 - 为什么 TCP 握手不是两次？
   TCP 两次握手的话，服务器并不知道客户端的接收能力是否完好
 - http1.1、http2、http3
-- TCP 三次握手、四次挥手
-- TCP 和 UDP 的区别
--
+- [TCP 三次握手、四次挥手](/Interview/HTTP/url.md)
+- [TCP 和 UDP 的区别](/Interview//HTTP/OSI7.md)
+- [OSI 七层网络模型](/Interview//HTTP/OSI7.md)
+- [GET 和 Post 的区别](/Interview/HTTP/1.md)
 
 ## Node 服务
 
