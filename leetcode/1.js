@@ -23,6 +23,7 @@ var twoSum = function (nums, target) {
   let numsMap = new Map()
   for (let i = 0; i < nums.length; i++) {
     let targetNum = target - nums[i] // 需要的值
+
     if (numsMap.get(targetNum) !== undefined) {
       return [i, numsMap.get(targetNum)]
     } else {
