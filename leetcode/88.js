@@ -14,10 +14,10 @@ var merge = function (nums1, m, nums2, n) {
   // nums1.splice(m, nums1.length - m, ...nums2)
   // nums1.sort((a, b) => a - b)
 
-  // 解放2：
-  let p1 = m - 1,
-    p2 = n - 1,
-    p = m + n - 1
+  // 解法2：
+  let p1 = m - 1, // num1截止的最后index
+    p2 = n - 1, // num2截止的最后index
+    p = m + n - 1 // num1 + nums2 最后的index
   while (p2 >= 0) {
     // nums2 还有要合并的元素
     // 如果 p1 < 0，那么走 else 分支，把 nums2 合并到 nums1 中
