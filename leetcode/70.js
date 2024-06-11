@@ -26,6 +26,11 @@ function jump(n) {
   if (n === 2) return 2
   return jump(n - 1) + jump(n - 2)
 }
+console.log(jump(2))
+console.log(jump(3))
+console.log(jump(8))
+
+// 动态规划版本
 function jumpDP(n) {
   if (n < 1) return
   if (n === 1) return 1
@@ -41,10 +46,8 @@ function jumpDP(n) {
   }
   return num
 }
-console.log(jump(2))
-console.log(jump(3))
-console.log(jump(8))
-
 console.log(jumpDP(2))
 console.log(jumpDP(3))
 console.log(jumpDP(8))
+
+function jumpDP1() {}

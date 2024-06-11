@@ -249,13 +249,3 @@ return left
 ## 总结
 
 从题目中可以感受到，二叉树的解题魅力在于递归，二叉树问题中，我们可以同时追求优雅与答案。
-
-> 讨论地址是：[精读《算法 - 二叉树》· Issue #331 · dt-fe/weekly](https://github.com/dt-fe/weekly/issues/331)
-
-**如果你想参与讨论，请 [点击这里](https://github.com/dt-fe/weekly)，每周都有新的主题，周末或周一发布。前端精读 - 帮你筛选靠谱的内容。**
-
-> 关注 **前端精读微信公众号**
-
-<img width=200 src="https://img.alicdn.com/tfs/TB165W0MCzqK1RjSZFLXXcn2XXa-258-258.jpg">
-
-> 版权声明：自由转载-非商用-非衍生-保持署名（[创意共享 3.0 许可证](https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh)）
