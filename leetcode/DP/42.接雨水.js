@@ -25,14 +25,16 @@ var trap = function (height) {
   const leftMax = new Array(len).fill(0)
   const rightMax = new Array(len).fill(0)
 
-  leftMax[0] = height[0]
+  leftMax[0] = height[0] // 初始化左边第一个最大值
   for (let i = 1; i < len; i++) {
+    // 当前高度的最大值，是左边i-1的最大值和当前值作比对，取出更大值
     leftMax[i] = Math.max(leftMax[i - 1], height[i])
   }
 
   // 填充 right_max 数组
-  rightMax[len - 1] = height[len - 1]
+  rightMax[len - 1] = height[len - 1] // 初始化右边第一个最大值
   for (let i = len - 2; i >= 0; i--) {
+    // 当前值的最大值，是右边i+1的最大值和当前值作比对，取出更大值
     rightMax[i] = Math.max(rightMax[i + 1], height[i])
   }
 
@@ -40,6 +42,36 @@ var trap = function (height) {
   for (let i = 0; i < len; i++) {
     totalWater += Math.min(leftMax[i], rightMax[i]) - height[i]
   }
+  console.log(leftMax, rightMax)
   return totalWater
 }
 // @lc code=end
+trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1])
+
+var trapDoublePinter = function (height) {
+  let left = 0,
+    right = height.length - 1,
+    lettMax = 0,
+    rightMax = 0,
+    totalWater = 0
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= lettMax) {
+        lettMax = height[left]
+      } else {
+        totalWater += lettMax - height[left]
+      }
+      left++
+    } else {
+      if (height[right] >= rightMax) {
+        rightMax = height[right]
+      } else {
+        totalWater += rightMax - height[right]
+      }
+      right--
+    }
+  }
+  return totalWater
+}
+
+console.log(trapDoublePinter([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
