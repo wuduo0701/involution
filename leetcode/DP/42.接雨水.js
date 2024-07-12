@@ -40,6 +40,7 @@ var trap = function (height) {
 
   let totalWater = 0
   for (let i = 0; i < len; i++) {
+    // +=左右两边最高区域的较小值 - 当前高度。即是可以蓄水的区域高度
     totalWater += Math.min(leftMax[i], rightMax[i]) - height[i]
   }
   console.log(leftMax, rightMax)

@@ -33,6 +33,7 @@
 var minDistance = function (word1, word2) {
   const m = word1.length
   const n = word2.length
+  // 表示将 word1 的前 i 个字符转换成 word2 的前 j 个字符所需的最少操作数。
   const dp = Array.from(new Array(m + 1), () => new Array(n + 1).fill(0))
 
   // word2为空的情况
@@ -46,11 +47,15 @@ var minDistance = function (word1, word2) {
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (word1[i - 1] === word2[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1] // 字符相等，证明不需要变化
+        dp[i][j] = dp[i - 1][j - 1] // 字符相等，证明当前位置不需要变化
       } else {
         dp[i][j] = Math.min(
+          // 意味着前i个字符和j-2个字符相等，只需在第i个字符上加上 word[j-1]字符即可
+          // 即需要先将前i个字符转换成前j-1个字符，再在第i个字符上加上 word[j-1]字符即可
           dp[i][j - 1] + 1, // 新增一个字符
+          // 这意味着我们需要将 word1 的前i-1个字符转化成word2的j个字符，然后在删除word1的第i-1个字符
           dp[i - 1][j] + 1, // 删除一个字符
+          // 我们需要先将 word1 的i-1个字符转化为 word2 的j-1个字符，然后在第i-1个字符上加上 word[j-1]字符即可
           dp[i - 1][j - 1] + 1 // 替换一个字符
         )
       }
