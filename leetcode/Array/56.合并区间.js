@@ -23,8 +23,9 @@
 var merge = function (intervals) {
   if (!intervals.length) return []
 
+  // 先按每个数组的0项，从小到大排序
   const sortArr = intervals.sort((a, b) => a[0] - b[0])
-  const mergeArr = [sortArr[0]]
+  const mergeArr = [sortArr[0]] // 初始化第一项
   for (let i = 1; i < sortArr.length; i++) {
     const prev = mergeArr[mergeArr.length - 1]
     const current = sortArr[i]
