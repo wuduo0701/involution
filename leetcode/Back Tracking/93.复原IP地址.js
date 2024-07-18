@@ -30,11 +30,11 @@ var restoreIpAddresses = function (s) {
       // 判断ip片段是否合法(不能含有前导 0 、且值小于255)，不合法则跳出本次循环
       if (
         (segment.length > 1 && segment[0] === '0') ||
-        (i === 3 && +segment > 255)
+        (segment.length === 3 && +segment > 255)
       )
         continue
       path.push(segment) // 将当前片段加入
-      backTracking(path, start + i)
+      backTracking(path, start + i) // 将本次合法的加入
       path.pop() // NOTE:【关键步骤】回溯，移除最后一个片段，尝试其他可能的片段组合
     }
   }
