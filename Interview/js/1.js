@@ -74,9 +74,30 @@
 // person1.foo4.call(person2)() // person2 -> 先是给foo4这个方法绑定了一个this为person2  再次调用foo4()的时候为箭头函数 它的上层作用域被显示的绑定了一个person2
 // person1.foo4().call(person2) //person1 -> 因为先执行了foo4 返回的结果是一个箭头函数 箭头函数是不可以绑定this的 所以当调用这个箭头函数的时候 以及寻找上层作用域 (上层找到person1)
 for (var i = 1; i <= 5; i++) {
-  (function(index) {
+  ;(function (index) {
     setTimeout(function timer() {
-      console.log(index);
-    }, index * 1000);
-  })(i);
+      console.log(index)
+    }, index * 1000)
+  })(i)
 }
+
+/**
+ * 隐式绑定题目
+ * NOTE:口诀：this 永远指向最后调用它的那个对象
+ */
+// 在 doFoo 内部，this 指向 obj2，因为 doFoo 是作为 obj2 的方法调用的。
+// doFoo 内部的第一个 console.log(this) 会打印 obj2，即 { a: 3, doFoo: [Function: doFoo] }。
+// 然后调用 fn()，这里的 fn 是 obj.foo，即 foo 函数。
+// 当调用 fn() 时，foo 内部的 this 没有绑定到任何对象，所以默认指向全局对象（在浏览器中是 window，在 Node.js 中是 global）。在严格模式下，this 会是 undefined。
+function foo() {
+  console.log(this.a)
+}
+function doFoo(fn) {
+  console.log(this)
+  fn() // 没有绑定this，则指向window
+}
+var obj = { a: 1, foo }
+var a = 2
+var obj2 = { a: 3, doFoo }
+
+obj2.doFoo(obj.foo)
