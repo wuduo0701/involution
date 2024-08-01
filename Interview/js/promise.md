@@ -72,11 +72,13 @@ const p = Promise.all([p1, p2, p3])
 
 1. 将多个 Promise 实例，包装成一个新的 Promise 实例。
 2. 只有两种情况返回。
-   1. `p1、p2、p3` 三个 promise 的状态都为 `fulfilled` 。返回值是 `p1、p2、p3` 的返回值组成一个数组，传递给 p 的回调函数。
+   1. `p1、p2、p3` 三个 promise 的状态都为成功 `fulfilled` 。返回值是 `p1、p2、p3` 的返回值组成一个数组，传递给 p 的回调函数。
    2. `p1、p2、p3` 三个 promise 中**存在一个**为 `rejected`。返回值是 第一个 `rejected` 的实例的返回值。
 3. 注意点：`p1、p2、p3` 中自己定义了 `catch` 方法的话。那么它一旦被 `rejected`，并不会触发外层的 `Promise.all` 的 catch 方法
 
 #### promise.race
+
+> 含义：race -> 赛跑
 
 ```js
 const p = Promise.race([p1, p2, p3])
@@ -86,6 +88,8 @@ const p = Promise.race([p1, p2, p3])
 2. 只要 `p1、p2、p3` 三个 promise 的状态**有一个**状态改变了，则 `p` 的状态就会变
 
 #### promise.allSettled
+
+> 含义：allSettled -> 全部解决
 
 ```js
 const p = Promise.race([p1, p2, p3])
