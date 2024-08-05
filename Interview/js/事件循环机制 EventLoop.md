@@ -38,11 +38,19 @@
 1. 浏览器更新渲染会在 event loop 中的 宏任务 和 微任务 完成后进行，即`宏任务 → 微任务 → 渲染更新`（先宏任务 再微任务，然后再渲染更新）
 2. 宏任务队列中，如果有大量任务等待执行时，将 dom 的变动作为微任务，能更快的将变化呈现给用户，这样就可以在这一次的事件轮询中更新 dom
 
+### 执行顺序
+
+1. 执行一个宏任务（例如从头到尾执行一个 <script> 标签中的代码）。
+2. 执行所有微任务（例如处理所有 Promise 的回调）。
+3. 如果需要，渲染 UI。
+4. 开始下一个宏任务。
+
 ## event loop 与 vue nextTick
 
 1. vue nextTick 的源码实现，优先级判断，总结就是 Promise > MutationObserver > setImmediate > setTimeout
 2. 这里优先使用 Promise，因为根据 event loop 与浏览器更新渲染时机，使用微任务，本次 event loop 轮询就可以获取到更新的 dom
 3. 如果使用宏任务，要到下一次 event loop 中，才能获取到更新的 dom
+4. Vue.js 优先使用微任务来实现 nextTick，是因为微任务可以更快地执行，提供更精确的控制，并且在不同环境中表现一致。这些特性使得微任务成为实现 nextTick 的理想选择。
 
 ## event loop 与 process.nextTick（Node）
 
