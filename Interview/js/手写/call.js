@@ -4,12 +4,14 @@ Function.prototype.myCall = function (context) {
     throw Error('not a function')
   }
   context = context || window // 是否有调用方，否则为window（context为nul或者undefined时，挂载到window）
+  // context = context || globalThis // 如果是node环境，则使用 globalThis
+
   let symbolFn = Symbol(), // 定义唯一函数
     args = [...arguments].splice(1) // 参数，去除第一个参数（this上下文指向）
   context[symbolFn] = this // 创建一个临时函数fn，this复制给fn
 
   let result = context[symbolFn](...args) // 执行结果
-  delete context[symbolFn] // 删除零食函数
+  delete context[symbolFn] // 删除临时函数
 
   return result
 }
@@ -21,7 +23,7 @@ function foo() {
   var a = 2
   console.log(this.a) // 1
 }
-foo.myCall(obj)
+foo.myCall(obj) // 3
 
 function greet(greeting, other) {
   console.log(`${greeting},${this.name} ${other}`)

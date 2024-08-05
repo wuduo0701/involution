@@ -20,7 +20,7 @@ Function.prototype.myApply = function (context) {
   context[symbolFn] = this
 
   let result = arguments[1]
-    ? context[symbolFn](arguments[1])
+    ? context[symbolFn](...arguments[1])
     : context[symbolFn]()
 
   delete context[symbolFn]
