@@ -25,7 +25,7 @@ var findDuplicates = function (nums) {
   const n = nums.length
   if (n < 2) return []
 
-  // 把数组的某个位置的值设为负数来表示那个数字已经出现过一次
+  // 把数组的某个下标的值设为负数来表示那个数字已经出现过一次
   let result = []
   for (let i = 0; i < n; i++) {
     // 比如数组中有两个2
