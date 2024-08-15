@@ -5,24 +5,13 @@
  */
 import nextTick from './nextTick' // 引入nextTick
 
-// 定义watcher类
-class Watcher {
-  update() {
-    // 放到watcher队列中，异步更新
-    queueWatcher(this)
-  }
-  // 触发更新
-  run() {
-    this.get()
-  }
-}
 // 初始化数据
 let queue = [] // 需要更新的watcher队列
 let has = {} // 保存已经存在的watcher
 let pending = false // 异步队列是否在执行
 
 // 队列中添加watcher
-function queueWatcher(watcher) {
+export function queueWatcher(watcher) {
   const { id } = watcher
   // 判断是否存在，去重
   if (!has(id)) {
@@ -48,6 +37,7 @@ function flushSchedulerQueue() {
   })
   resetSchedulerState()
 }
+
 function resetSchedulerState() {
   queue = []
   has = {}
