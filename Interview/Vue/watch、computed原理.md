@@ -23,6 +23,13 @@
 > 1. 直接响应：watch 选项不会缓存值，而是直接响应数据的变化。
 > 2. 回调函数：当被观察的数据变化时，watch 会调用指定的回调函数。
 
+## watch 原理
+
+1. 遍历 watch 对象， 给其中每一个 watch 属性，生成对应的 user watcher
+2. 调用 watcher 中的 get 方法，将 Dep.target 设置成当前的 user watcher，并将 user watcher 添加到监听 data 值对应的 dep 中（依赖收集的过程
+3. 当所监听 data 中的值发生变化时，会调用 set 方法触发 dep 的 notify 方法，执行 watcher 中定义的方法
+4. 设置成 deep：true 的情况，递归遍历所监听的对象，将 user watcher 添加到对象中每一层 key 值的 dep 对象中，这样无论当对象的中哪一层发生变化，wacher 都能监听到。通过对象的递归遍历，实现了深度监听功能
+
 # computed 和 watch 的区别
 
 1. 计算属性本质上是 computed watcher，而 watch 本质上是 user watcher（用户自己定义的 watcher）
