@@ -30,6 +30,7 @@ var subarraySum = function (nums, k) {
     // 检查是否存在前缀和为 sum - k 的情况
     if (map.has(sum - k)) {
       // 如果存在，说明从某个位置到当前元素的子数组和为 k，将其出现的次数加到 count 中
+      // 因为此时的sum = k + (sum - k)，如果存在sum - k，即之前就有和为sum - k的数。
       ans += map.get(sum - k)
     }
     // 更新当前前缀和的出现次数
