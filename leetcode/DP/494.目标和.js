@@ -22,8 +22,8 @@ var findTargetSumWays = function (nums, target) {
   //     2. 最终表达式的结果应该是 target：P - N = target
   // 3. 推到出公式：P = (sum + target) / 2
   const sum = nums.reduce((acc, num) => acc + num, 0)
-  // 和不能小于0 或者 sum + target必须为偶数（因为公式：(sum + target) / 2）
-  if (sum < target || (sum + target) % 2 !== 0) {
+  // 和不能小于target 或者 sum + target必须为偶数（因为公式：(sum + target) / 2）
+  if (sum < Math.abs(target) || (sum + target) % 2 !== 0) {
     return 0
   }
   const newTarget = (sum + target) / 2 // 需要找到这个数
