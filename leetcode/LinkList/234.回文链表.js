@@ -37,13 +37,14 @@ var isPalindrome = function (head) {
     slow = slow.next
     fast = fast.next.next
   }
+  let curr = slow
   let prev = null // 后半链表的开头
   // 反转后半链表
-  while (slow) {
-    let next = slow.next // 保留下一节点
-    slow.next = prev // 翻转链表
-    prev = slow // 移动prev
-    slow = next // 移动到下一节点
+  while (curr) {
+    let next = curr.next // 保留下一节点
+    curr.next = prev // 翻转链表
+    prev = curr // 移动prev
+    curr = next // 移动到下一节点
   }
   // 比较前半部分和反转后的后半部分
   let left = head,
