@@ -31,18 +31,17 @@ var reverseBetween = function (head, left, right) {
   // 链表为空 / （左边 = 右边 不需要反转）
   if (!head || left === right) return head
 
-  // 提供 dummy 哑节点
-  let dummy = new ListNode(-1)
-  dummy.next = head // 增加前继节点，防止为空
+  // 提供 dummy 哑节点(增加前继节点)
+  let dummy = new ListNode(-1, head)
+  // dummy.next = head // 增加前继节点，防止为空
   let prev = dummy
 
   // 找到left前一个节点
-  for (let i = 1; i < left; i++) {
+  for (let i = 0; i < left - 1; i++) {
     prev = prev.next
   }
   // 反转链表
   let curr = prev.next
-  // let next = null
   for (let i = 0; i < right - left; i++) {
     let next = curr.next
     curr.next = next.next
@@ -51,10 +50,4 @@ var reverseBetween = function (head, left, right) {
   }
   return dummy.next
 }
-//  1  -> 2  -> 3 -> 4     5
-// prev  cur  next  
-// 1  3  2  4  5
-
-// 1  4  3  2  5
-// 
 // @lc code=end
