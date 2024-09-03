@@ -45,8 +45,9 @@ Result（结果）：项目最终结果如何？有哪些成就？有哪些不�
           - 只能控制自己系统的改造
           - 子应用切换时不销毁 DOM，会导致 DOM 节点和事件监听过多，严重时会造成页面卡顿
      2. registerMicroApps 注册所以子应用，然后 start 开启预加载，并且开启 singular 多实例模式。通过 patch-package 的方式来修改 qiankun 源码的 loader.js 这个文件。修改子项目的 render()和 unmount()方法
-        子应用切换的时候会触发各自子应用的生命周期
-        即增加判断如果 `!getContainer(initialContainer).firstChild` 的实例不存在，才执行生命周期。
-        否则跳过。
+     子应用切换的时候会触发各自子应用的生命周期
+     即增加判断如果 `!getContainer(initialContainer).firstChild` 的实例不存在，才执行生命周期。
+     否则跳过。
+     <!-- https://developer.aliyun.com/article/1304098?spm=a2c6h.14164896.0.0.470f47c5nvJQSO&scm=20140722.S_community@@%E6%96%87%E7%AB%A0@@1304098._.ID_1304098-RL_%E5%BE%AE%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E9%9A%BE%E7%82%B9%E8%A7%A3%E5%86%B3-LOC_search~UND~community~UND~item-OR_ser-V_3-P0_0 -->
 
 2.
