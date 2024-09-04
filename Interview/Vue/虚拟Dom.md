@@ -163,7 +163,7 @@ function removeNode(el) {
 1. 结束循环的条件（`oldStartIdx > oldEndIdx || newStartIdx > newEndIdx`）
 2. 在遍历中，如果存在 key，并且满足 sameVnode，会将该 DOM 节点进行复用(只通过移动节点顺序)，否则则会创建一个新的 DOM 节点。
 3. oldStartVnode、oldEndVnode 与 newStartVnode、newEndVnode 两两比较共有`4种`比较方法：
-   1. 如果 oldVnode 旧节点的开始节点或者节点不存在。说明已经处理过，直接移动下一节点比对
+   1. 如果 oldVnode 旧节点的开始节点或者结束节点不存在。说明已经处理过，直接移动下一节点比对
       1. 开始节点不存在，移动到下一节点。
          1. `oldStartVnode = oldCh[++oldStartIdx];`
       2. 结束节点不存在，移动到上一节点。
