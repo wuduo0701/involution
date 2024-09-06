@@ -19,37 +19,37 @@
  */
 var levelOrder = function (root) {
   // 递归-方法
-  // if (!root) return []
-  // const result = []
-
-  // function order(node, level = 0) {
-  //   if (!node) return
-
-  //   if (!result[level]) result[level] = []
-  //   result[level].push(node.val)
-  //   order(node.left, level + 1)
-  //   order(node.right, level + 1)
-  // }
-  // order(root, 0)
-  // return result
-
-  // 迭代的方法
   if (!root) return []
   const result = []
-  const queue = [root]
-  while (queue.length) {
-    const queueLen = queue.length
-    const nodeLevel = []
 
-    for (let i = 0; i < queueLen; i++) {
-      let node = queue.shift()
-      nodeLevel.push(node.val)
+  function order(node, level = 0) {
+    if (!node) return
 
-      if (node.left) queue.push(node.left)
-      if (node.right) queue.push(node.right)
-    }
-    result.push(nodeLevel)
+    if (!result[level]) result[level] = []
+    result[level].push(node.val)
+    order(node.left, level + 1)
+    order(node.right, level + 1)
   }
+  order(root, 0)
   return result
+
+  // 迭代的方法
+  // if (!root) return []
+  // const result = []
+  // const queue = [root]
+  // while (queue.length) {
+  //   const queueLen = queue.length
+  //   const nodeLevel = []
+
+  //   for (let i = 0; i < queueLen; i++) {
+  //     let node = queue.shift()
+  //     nodeLevel.push(node.val)
+
+  //     if (node.left) queue.push(node.left)
+  //     if (node.right) queue.push(node.right)
+  //   }
+  //   result.push(nodeLevel)
+  // }
+  // return result
 }
 // @lc code=end

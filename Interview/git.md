@@ -8,3 +8,19 @@
 2. rebase
    rebase 会将整个分支移动到另一个分支上，有效地整合了所有分支上的提交
    问题：如果合并出现代码问题不容易定位，因为 重写了 history
+
+## git reset 和 revert
+
+1. git reset
+   （重置）用于回退版本，可以遗弃不再使用的提交，会改变历史
+2. git revert
+   新增一次提交，抵消掉上一次提交导致的所有变化，不会改变历史
+
+两个都是回退分支。如果代码以后还要用则用 `git revert`。如果提错分支了想回退则用 `git reset`
+
+## git pull 和 git fetch
+
+1. git pull
+   相当于 git fetch + git merge
+2. git fetch
+   把远程分支拉取过来，相对来说更安全
