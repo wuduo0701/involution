@@ -1,40 +1,35 @@
-const delay = (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('promise is resolve after' + ms + 'ms')
-    }, ms)
-  })
-}
 class Pool {
   constructor(max) {
-    this.max = max
     this.queue = []
-    this.count = 0
+    this.maxLimit = max
+    this.currentIdx = 0
     this.results = []
+
+    // 如果是先输出的先放入结果
+    this.index = 0
   }
   add(task, index) {
     return new Promise((resolve) => {
       const runTask = () => {
-        this.count++
-
+        this.currentIdx++
         task()
           .then((result) => {
-            this.results[index++] = result
+            this.results[this.index++] = result
             resolve()
           })
           .catch((error) => {
-            this.results[index++] = { error }
+            this.results[this.index++] = { error }
             resolve()
           })
           .finally(() => {
-            this.count--
+            this.currentIdx--
             if (this.queue.length > 0) {
               const nextTask = this.queue.shift()
               nextTask()
             }
           })
       }
-      if (this.count < this.max) {
+      if (this.currentIdx < this.maxLimit) {
         runTask()
       } else {
         this.queue.push(runTask)
@@ -47,16 +42,23 @@ class Pool {
     return this.results
   }
 }
-
+const delay = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('resolve' + ms + 'ms')
+    }, ms)
+  })
+}
 const tasks = [
   () => delay(2000),
   () => delay(4000),
   () => delay(5000),
   () => delay(6000),
-  () => delay(7000),
   () => delay(1000)
 ]
-const pool = new Pool(5)
+
+const pool = new Pool(2)
+
 pool.runAll(tasks).then((result) => {
   console.log('all task is completed')
   console.log(result)

@@ -1,7 +1,7 @@
 class Pool {
   constructor(maxQueue) {
-    this.queue = []
-    this.max = maxQueue
+    this.queue = [] // 任务队列
+    this.max = maxQueue // 最大并行数
     this.currentCount = 0
     // this.index = 0
     this.results = []
