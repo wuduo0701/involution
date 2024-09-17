@@ -29,8 +29,8 @@ var removeDuplicates = function (nums) {
   let left = 2,
     right = 2
   while (right < n) {
-    // 因为相同元素最多出现两次而非一次，所以需要建议 left - 2的元素和right做对比
-    // 如果不想到则符合要求，替换。并且left++
+    // 因为相同元素最多出现两次而非一次，所以需要数组 left - 2的元素和right做对比
+    // 如果不相等则符合要求，替换。并且left++
     // right++ 是无论是否符合条件都执行
     if (nums[left - 2] !== nums[right]) {
       nums[left] = nums[right]

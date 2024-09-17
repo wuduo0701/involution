@@ -32,6 +32,7 @@ var findPeakElement = function (nums) {
   while (left < right) {
     const middle = (left + right) >> 1 // 位运算。计算left和right的平均数，并向下取整
     if (nums[middle] > nums[middle + 1]) {
+      // 如果中间元素大于右边的元素，说明左侧有峰值
       right = middle
     } else {
       left = middle + 1
