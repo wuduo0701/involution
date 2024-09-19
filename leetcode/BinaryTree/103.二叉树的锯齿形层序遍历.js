@@ -42,21 +42,23 @@ var zigzagLevelOrder = function (root) {
   // }
   // return result
   // 递归 - 方法
+
+  // TODO:层序遍历的变体
+  // 放值的时候，判断层级。如是单数，正常push，如是复数，则unshift增加
   if (!root) return []
   const result = []
 
-  function order(node, level = 0) {
-    if (!node) return
-
-    if (!result[level]) result[level] = []
-
-    if (level % 2 === 0) {
-      result[level].push(node.val)
-    } else {
-      result[level].unshift(node.val)
+  function order(node, index = 0) {
+    if (node !== null) {
+      result[index] = result[index] || []
+      if (index % 2 === 0) {
+        result[index].push(node.val)
+      } else {
+        result[index].unshift(node.val)
+      }
+      order(node.left, index + 1)
+      order(node.right, index + 1)
     }
-    order(node.left, level + 1)
-    order(node.right, level + 1)
   }
   order(root, 0)
   return result

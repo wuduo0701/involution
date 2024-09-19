@@ -22,13 +22,13 @@ var levelOrder = function (root) {
   if (!root) return []
   const result = []
 
-  function order(node, level = 0) {
-    if (!node) return
-
-    if (!result[level]) result[level] = []
-    result[level].push(node.val)
-    order(node.left, level + 1)
-    order(node.right, level + 1)
+  function order(node, index = 0) {
+    if (node !== null) {
+      result[index] = result[index] || []
+      result[index].push(node.val)
+      order(node.left, index + 1, result)
+      order(node.right, index + 1, result)
+    }
   }
   order(root, 0)
   return result
