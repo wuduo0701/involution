@@ -33,6 +33,10 @@ var longestCommonSubsequence = function (text1, text2) {
   const m = text1.length
   const n = text2.length
   const dp = Array.from(Array(m + 1), () => Array(n + 1).fill(0))
+  // 两边遍历
+  // 1. 创建二维数组
+  // 2. 如果有相同的字符串，则+1
+  // 3. 否则取上一轮的最大值（dp[i - 1][j], dp[i][j - 1]）
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       if (text1[i - 1] === text2[j - 1]) {
