@@ -22,7 +22,7 @@
  */
 var subsets = function (nums) {
   let result = []
-  function backTrack(index, list) {
+  function backTrack(list, index) {
     // 指针越界
     if (index === nums.length) {
       result.push(list.slice()) //加入题解
@@ -34,7 +34,7 @@ var subsets = function (nums) {
     list.pop() // 不选这个数
     backTrack(index + 1, list) // 基于不选择这个数，往下递归
   }
-  backTrack(0, [])
+  backTrack([], 0)
   return result
 }
 // @lc code=end

@@ -4,8 +4,8 @@ var levelOrder = function (root) {
     if (node !== null) {
       result[index] = result[index] || []
       result[index].push(node.val)
-      order(node.left, index + 1, result)
-      order(node.right, index + 1, result)
+      order(node.left, index + 1)
+      order(node.right, index + 1)
     }
   }
   order(root, 0)

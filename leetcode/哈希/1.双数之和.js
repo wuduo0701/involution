@@ -24,10 +24,10 @@ var twoSum = function (nums, target) {
   for (let i = 0; i < nums.length; i++) {
     let targetNum = target - nums[i] // 需要的值
 
-    if (numsMap.get(targetNum) !== undefined) {
-      return [i, numsMap.get(targetNum)]
+    if (numsMap.get(nums[i]) !== undefined) {
+      return [i, numsMap.get(nums[i])]
     } else {
-      numsMap.set(nums[i], i)
+      numsMap.set(targetNum, i)
     }
   }
   // let numsMap = {}
