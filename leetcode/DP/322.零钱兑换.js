@@ -34,16 +34,24 @@
 // 2. 最少硬币数，可能是dp[i]本身，或者从需要一个金额coin的才能凑成，则从dp[i - coin]中取得个数，在加上本身
 var coinChange = function (coins, amount) {
   if (coins.length === 0) return -1
+  // 从大到小排序，先凑大的
   coins.sort((a, b) => b - a)
-  let dp = new Array(amount + 1).fill(Infinity)
-  dp[0] = 0
+  let dp = new Array(amount + 1).fill(Infinity) // 表示凑齐i所需的最小硬币数
+  dp[0] = 0 // 凑齐0，需要0个
+
+  // 外层使用所需金额总数
   for (let i = 1; i <= amount; i++) {
+    // 内层循环每个金额的大小，取最小能抵达的金额
     for (let j = 0; j < coins.length; j++) {
+      // 如果所需金额还不够 或者 是相等
       if (coins[j] <= i) {
+        // 取dp[i]本身，或者从需要一个金额coin的才能凑成，则从dp[i - coin]中取得个数，再加1。
+        // 取最小值
         dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1)
       }
     }
   }
+  // 如果dp[amount] 还是无穷大，则返回-1，否则返回 dp[amount]
   return dp[amount] === Infinity ? -1 : dp[amount]
 }
 // @lc code=end

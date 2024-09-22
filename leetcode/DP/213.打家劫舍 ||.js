@@ -55,4 +55,4 @@ var rob = function (nums) {
 }
 // @lc code=end
 
-rob([1, 2, 3, 1])
+console.log(rob([1, 2, 3, 1]))

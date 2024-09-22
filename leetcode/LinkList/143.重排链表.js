@@ -76,7 +76,7 @@ var reorderList = function (head) {
     fast = fast.next.next
   }
 
-  // 反转右半部分链表
+  // 2. 反转右半部分链表
   let curr = slow
   let prev = null
   while (curr) {
@@ -85,7 +85,7 @@ var reorderList = function (head) {
     prev = curr
     curr = next
   }
-  // 合并两个链表
+  // 3. 合并两个链表[一个是全链表，一个是半个反转后的链表]
   let left = head,
     right = prev
   while (right.next) {

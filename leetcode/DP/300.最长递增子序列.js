@@ -32,7 +32,9 @@ var lengthOfLIS = function (nums) {
   const dp = new Array(len).fill(1) // 所有都初始化为1
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < i; j++) {
-      if (nums[i] > nums[j]) dp[i] = Math.max(dp[i], dp[j] + 1)
+      // 如果有新的数大于，之前的num[j]。
+      // 证明可以重新计算，dp数。比对(dp[i], dp[j]+1)
+      if (nums[j] < nums[i]) dp[i] = Math.max(dp[i], dp[j] + 1)
     }
     result = Math.max(dp[i], result)
   }
