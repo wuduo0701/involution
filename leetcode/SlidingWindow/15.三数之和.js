@@ -31,24 +31,58 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+// var threeSum = function (nums) {
+//   const numsLen = nums.length
+//   if (numsLen <= 2) return []
+//   nums.sort((a, b) => a - b) // 从小到大排序
+
+//   const result = []
+//   // 外层循环，相当于固定一个数
+//   for (let i = 0; i < numsLen - 2; i++) {
+//     if (i > 0 && nums[i] === nums[i - 1]) {
+//       // 跳过重复的元素
+//       continue
+//     }
+//     // 使用左右指针，左指针为i+1，右指针为边缘len-1
+//     let left = i + 1,
+//       right = numsLen - 1
+
+//     while (left < right) {
+//       const target = -(nums[left] + nums[right])
+//       if (nums[i] === target) {
+//         result.push([nums[i], nums[left], nums[right]])
+//         while (nums[left] === nums[left + 1]) left++
+//         while (nums[right] === nums[right - 1]) right--
+
+//         left++
+//         right--
+//       } else if (nums[i] < target) {
+//         left++
+//       } else {
+//         right--
+//       }
+//     }
+//   }
+//   return result
+// }
 var threeSum = function (nums) {
   const numsLen = nums.length
-  if (numsLen <= 2) return []
-  nums.sort((a, b) => a - b) // 排序
+  if (numsLen < 3) return []
 
+  nums.sort((a, b) => a - b)
   const result = []
   for (let i = 0; i < numsLen - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) {
-      // 跳过重复的元素
+    if (nums[i] === nums[i - 1]) {
       continue
     }
+
     let left = i + 1,
       right = numsLen - 1
-
     while (left < right) {
       const target = -(nums[left] + nums[right])
       if (nums[i] === target) {
         result.push([nums[i], nums[left], nums[right]])
+
         while (nums[left] === nums[left + 1]) left++
         while (nums[right] === nums[right - 1]) right--
 
@@ -63,4 +97,5 @@ var threeSum = function (nums) {
   }
   return result
 }
+
 // @lc code=end

@@ -30,54 +30,26 @@ var threeSumClosest = function (nums, target) {
 
   for (let i = 0; i < n - 2; i++) {
     // 优化一
-    if (i > 0 && nums[i] === nums[i - 1]) {
+    if (nums[i] === nums[i - 1]) {
       continue // 跳过重复的循环
     }
-    // FIXME:可有可无的优化
-    // let sum = nums[i] + nums[i + 1] + nums[i + 2]
-    // if (sum > target) {
-    //   if (sum - target < closest) {
-    //     result = sum // 由于下面直接 break，这里无需更新 closest
-    //   }
-    //   break
-    // }
-    // sum = nums[i] + nums[n - 2] + nums[n - 1]
-    // if (sum < target) {
-    //   // x 加上后面任意两个数都不超过 s，所以下面的双指针就不需要跑了
-    //   if (target - sum < closest) {
-    //     closest = target - sum
-    //     result = sum
-    //   }
-    //   continue
-    // }
-
     let left = i + 1,
       right = n - 1
     while (left < right) {
       const sum = nums[i] + nums[left] + nums[right]
       if (sum === target) {
         return target
-      }
-      // if (sum > target) {
-      //   if (sum - target < closest) {
-      //     closest = sum - target
-      //     result = sum
-      //   }
-      //   right--
-      // } else {
-      //   if (target - sum < closest) {
-      //     closest = target - sum
-      //     result = sum
-      //   }
-      //   left++
-      // }
-      if (Math.abs(sum - target) < closest) {
-        closest = Math.abs(sum - target)
-        result = sum
-      }
-      if (sum > target) {
+      } else if (sum > target) {
+        if (sum - target < closest) {
+          closest = sum - target
+          result = sum
+        }
         right--
       } else {
+        if (target - sum < closest) {
+          closest = target - sum
+          result = sum
+        }
         left++
       }
     }
