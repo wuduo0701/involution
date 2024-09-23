@@ -7,7 +7,6 @@ var reverseBetween = function (head, left, right) {
     prev = prev.next
   }
   let curr = prev.next
-
   for (let i = 0; i < right - left; i++) {
     let next = curr.next
     curr.next = next.next
