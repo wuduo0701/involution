@@ -1,7 +1,6 @@
-var reverseBetween = function (head, left, right) {
+function reserve(head, left, right) {
   if (!head || left === right) return head
-
-  let dummy = new ListNode(-1, head)
+  let dummy = new LinkList(-1, head)
   let prev = dummy
   for (let i = 0; i < left - 1; i++) {
     prev = prev.next
