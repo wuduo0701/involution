@@ -31,27 +31,20 @@
 // 1、第0到n-2个房子，即不考虑最后一个房子
 // 2、第1到n-1个房子，即不考虑第一个房子
 var rob = function (nums) {
-  const len = nums.length
-  if (len === 0) return 0
-  if (len === 1) return nums[0]
+  if (nums.length === 1) return nums[0]
 
-  const robFn = (nums) => {
-    const n = nums.length
-    if (n === 0) return 0
-    if (n === 1) return nums[0]
-    const dp = new Array(n).fill(0)
-    dp[n - 1] = nums[n - 1] // 有一间，只有一种偷法
-    dp[n - 2] = Math.max(nums[n - 2], nums[n - 1]) //  有两间，只有两种偷法，取最大值
-
-    // 随后往前递归-套用动态方程：dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2])。
-    // 最大值即是dp[0]
-    for (let i = n - 3; i >= 0; i--) {
-      dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2])
+  const robFn = (arr) => {
+    const dp = new Array(arr.length).fill(0)
+    dp[0] = arr[0] // 有一间，只有一种偷法
+    dp[1] = Math.max(arr[0], arr[1]) //  有两间，只有两种偷法，取最大值
+    for (let i = 2; i < arr.length; i++) {
+      dp[i] = Math.max(dp[i - 2] + arr[i], dp[i - 1])
     }
-
-    return dp[0]
+    return dp[arr.length - 1] // 返回最大抢劫金额
   }
-  return Math.max(robFn(nums.slice(0, len - 1)), robFn(nums.slice(1)))
+
+  // 分两种情况，考虑环形特性
+  return Math.max(robFn(nums.slice(1)), robFn(nums.slice(0, nums.length - 1)))
 }
 // @lc code=end
 

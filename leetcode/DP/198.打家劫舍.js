@@ -22,21 +22,16 @@
  * @param {number[]} nums
  * @return {number}
  */
+// 动态方程：dp[i] = Math.max(dp[i -1], nums[i] + dp[i -2])
 var rob = function (nums) {
-  // 动态方程：dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2])
-
-  if (nums.length === 1) return nums[0]
-  const dp = []
-  dp[nums.length - 1] = nums[nums.length - 1] // 有一间，只有一种偷法
-  dp[nums.length - 2] = Math.max(nums[nums.length - 2], nums[nums.length - 1]) //  有两间，只有两种偷法，取最大值
-
-  // 随后往前递归-套用动态方程：dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2])。
-  // 最大值即是dp[0]
-  for (let i = nums.length - 3; i >= 0; i--) {
-    dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2])
+  const len = nums.length
+  const dp = new Array(len).fill(0)
+  dp[0] = nums[0] // 有一间，只有一种偷法
+  dp[1] = Math.max(dp[0], nums[1]) //  有两间，只有两种偷法，取最大值
+  for (let i = 2; i < len; i++) {
+    dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1])
   }
-
-  return dp[0]
+  return dp[len - 1]
 }
 // @lc code=end
 

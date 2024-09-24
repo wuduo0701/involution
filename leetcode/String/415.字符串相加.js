@@ -45,10 +45,11 @@ var addStrings = function (num1, num2) {
     n1--
     n2--
   }
-  
+
   return result.reverse().join('')
 }
 // @lc code=end
 
 console.log(addStrings('11', '123'))
 console.log(addStrings('456', '77'))
+console.log(addStrings('123', '789'))
