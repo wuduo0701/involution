@@ -57,6 +57,7 @@
 
 ## patch 算法及补丁过程
 
+> 以新树为基准做 patch
 > patch 算法可总结为以下三个主要步骤：
 
 1. 创建节点：新的 VNode 中有而旧的 oldVNode 中没有，就在旧的 oldVNode 中创建。
@@ -223,3 +224,4 @@ key 主要用在 Vue 的虚拟 DOM 的 `diff 算法`中，是 vnode 的唯一标
 
 1. 如果没有设置 key。vue 会直接创建新 dom 节点
 2. 如果用 index 设置 key 的话。vue 会进一步通 `sameVnode` 判断是否为同一节点。而用 index 做 key 的话，对于每个节点来说可能他并不是唯一的，可能会重新排列。vue 还是会创建新节点。所以说使用`index作为key和不写key没什么区别`，对于 vue 来说可能都是负优化。
+3. 
