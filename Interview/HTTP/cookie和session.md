@@ -13,7 +13,7 @@
 
 ## 安全相关
 
-1. secure 只能 HTTPS 协议
+1. secure 只能 HTTPS 协议传输 cookie
 2. HttpOnly。预防 XSS 攻击
 3. SameSite
    1. Strict 严格模式。完全禁止第三方请求携带 Cookie
