@@ -39,6 +39,15 @@ function curry(fn, ...args) {
       : curry.call(this, fn, ...totalArgs)
   }
 }
+function curry(fn, ...args) {
+  let len = fn.length
+  return function () {
+    let totalArgs = [...args, ...arguments]
+    return totalArgs >= len
+      ? fn.call(this, ...totalArgs)
+      : curry.call(this, fn, ...totalArgs)
+  }
+}
 let fn = curry(function (a, b, c, d, e) {
   return a + b + c + d + e
 })

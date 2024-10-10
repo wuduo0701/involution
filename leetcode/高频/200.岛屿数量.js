@@ -41,15 +41,18 @@ var numIslands = function (grid) {
 }
 // DFS 深度优先遍历
 var dfs = function (grid, i, j, rows, cols) {
-  // 边界条件
+  // 边界条件检查，确保当前坐标在网格范围内且当前单元格未被访问过
   if (i < 0 || j < 0 || i > rows - 1 || j > cols - 1 || grid[i][j] === '0')
-    return
+    return // 如果超出边界或当前单元格为'0'，则返回
 
-  grid[i][j] = '0' // 遍历过的，就置为0，防止多次计算
-  // 向四周深度遍历
+  grid[i][j] = '0' // 将当前单元格标记为'0'，表示已访问，防止重复计算
+  // 向上方深度优先搜索
   dfs(grid, i - 1, j, rows, cols)
+  // 向下方深度优先搜索
   dfs(grid, i + 1, j, rows, cols)
+  // 向左方深度优先搜索
   dfs(grid, i, j - 1, rows, cols)
+  // 向右方深度优先搜索
   dfs(grid, i, j + 1, rows, cols)
 }
 
