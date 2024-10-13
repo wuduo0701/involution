@@ -17,7 +17,7 @@ class Pool {
           })
           .catch((error) => {
             this.results[index++] = { error }
-            resolve
+            resolve()
           })
           .finally(() => {
             this.currentCount--

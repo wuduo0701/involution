@@ -106,5 +106,104 @@
 8. vue 的常见优化手段
 9. vue2 和 vue3 的区别
 10. 手写：promise 结合 文件流的输出题目
-11. 手写： reduce
-12. 手写：数组链式调用问题。
+
+```js
+// 1、请实现一个promisify函数 ，负责将一个接收回调函数参数的函数转换成一个返回 Promise的函数
+
+var fs = require('fs');
+fs.readFile('input.txt', function (err, data) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('异步读取: ' + data.toString());
+});
+
+function promisify(fs.readFile) {
+  // ...代码实现
+  return function(path) {
+    return new Promise(
+       (resolve, reject) => {
+         fs.readFile('input.txt', function (err, data) {
+  if (err) {
+    reject(err)
+    return console.error(err);
+  }
+  resolve(data)
+  console.log('异步读取: ' + data.toString());
+});
+        // let result, error
+        // await fs.readFile(path, function (err, data) {
+        //   if (err) {
+        //     error = err
+        //   }
+        //   result = data
+        // })
+
+        // if (result) {
+        //   resolve(result)
+        // }
+        // if (error) {
+        //   reject(error)
+        // }
+      }
+    )
+  }
+}
+
+promisify(fs.readFile)('input.txt')
+  .then((data) => {
+    console.log('异步读取: ' + data.toString());
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+
+```
+
+12. 手写： reduce
+13. 手写：数组链式调用问题。
+
+```js
+// 3、如下代码所示，使用 find 函数实现链式调用
+
+const data = [
+  { userId: 8, title: 'title1' },
+  { userId: 11, title: 'other' },
+  { userId: 15, title: null },
+  { userId: 19, title: 'title2' }
+]
+// 查找data中，符合where中条件的数据，并根据orderBy中的条件进行排序
+const result = find(data)
+  .where({
+    title: /\d$/ // 这里意思是过滤出数组中，满足title字段中符合 /\d$/的项
+  })
+  .orderBy('userId', 'desc') // 这里的意思是对数组中的项按照userId进行倒序排列
+
+Array.prototype.find = function (nums) {
+  return nums
+}
+
+Array.prototype.where = function ({}) {
+  const nums = this
+
+  let result = []
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i].title?.test(reg)) {
+      result.push(nums[i])
+    }
+  }
+  return result
+}
+Array.prototype.orderBy = function (a, b) {
+  const nums = this
+  nums.sort((a, b) => {
+    return b.userId - a.userId
+  })
+
+  return nums
+}
+```
+
+# 2024.10.11 美团
+1. 
