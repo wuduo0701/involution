@@ -7,10 +7,11 @@
 
 > 不单是 HTML 文件了，还包括了 JavaScript、CSS、图片、音频、视频等不同类型的文件
 
-1. 支持更多类型文件
-2. 引入状态码
-3. 提供缓存机制。强缓存的 Catch-Control，协商缓存
-4. 加入 User-Agent
+1. 支持 POST 方法
+2. 支持更多类型文件
+3. 引入状态码
+4. 提供缓存机制。强缓存的 Catch-Control，协商缓存
+5. 加入 User-Agent
 
 # HTTP 1.1（1997）
 
