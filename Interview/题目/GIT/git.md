@@ -24,3 +24,12 @@
    相当于 git fetch + git merge
 2. git fetch
    把远程分支拉取过来，相对来说更安全
+
+## git 有最近两次 commit a,b 。b 为最新的 commit。如和修改到 a 上面的 commit 内容，并且不会变动最新的 commit
+
+1. rebase 到 a 的历史 commit 上
+2. 编辑提交
+   1. pick <commit-a-hash> Commit message for a
+   2. pick <commit-b-hash> Commit message for b
+3. 修改提交 a：
+4. git rebase --continue
