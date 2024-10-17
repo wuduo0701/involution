@@ -1,7 +1,7 @@
 function deepClone(targetObj) {
   // 如果是null或者undefined 不进行拷贝操作
-  if (targetObj === null || targetObj === undefined) return targetObj
   if (typeof targetObj !== 'object') return targetObj
+  if (targetObj === null || targetObj === undefined) return targetObj
   if (targetObj instanceof Date) return new Date(targetObj)
   if (targetObj instanceof RegExp) return new RegExp(targetObj)
 
