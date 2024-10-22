@@ -34,6 +34,27 @@ class myPromise {
       }
     })
   }
+  static allsettled(promises) {
+    return new Promise((resolve, reject) => {
+      let count = 0
+      let result = []
+      for (let i = 0; i < promises.length; i++) {
+        let p = Promise.resolve(promises[i])
+        p.then((result) => {
+          result[i].push(result)
+        })
+          .catch((err) => {
+            result[i].push(err)
+          })
+          .finally(() => {
+            count++
+            if (count === promises.length) {
+              resolve(result)
+            }
+          })
+      }
+    })
+  }
 }
 
 // 创建 test1 和 test2，但不要在这里调用 then 方法
