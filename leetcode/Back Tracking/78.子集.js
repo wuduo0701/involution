@@ -30,9 +30,9 @@ var subsets = function (nums) {
     }
     // 基于每个数，都可以选择和不选择的情况。往下递归
     list.push(nums[index]) // 选择这个数
-    backTrack(index + 1, list) // 基于选择这个数，往下递归
+    backTrack(list, index + 1) // 基于选择这个数，往下递归
     list.pop() // 不选这个数
-    backTrack(index + 1, list) // 基于不选择这个数，往下递归
+    backTrack(list, index + 1) // 基于不选择这个数，往下递归
   }
   backTrack([], 0)
   return result
