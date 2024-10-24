@@ -49,8 +49,7 @@ class myPromise {
           .finally(() => {
             count++
             if (count === promises.length) {
-              resolve(result)
-            }
+              resolve(result)           }
           })
       }
     })
@@ -84,6 +83,7 @@ myPromise.race([test3, test4]).then(
     console.log('首先输出的结果', results)
   },
   (error) => {
-    console.log('一个或多个 promises 失败', error)
+    co
+ nsole.log('一个或多个 promises 失败', error)
   }
 )
