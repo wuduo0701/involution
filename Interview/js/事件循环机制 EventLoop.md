@@ -30,7 +30,7 @@
 
   - Promise.then
   - MutaionObserver
-  - Object.observe（已废弃；Proxy 对象替代）
+  - Object.observe（已废弃；Prox对象替代）
   - process.nextTick（Node.js）
 
 ## event loop 与 浏览器更新渲染时机
@@ -76,3 +76,4 @@ process.nextTick(() => {
 console.log('end')
 // 执行结果 start end nextTick  promise promise1 timeout
 ```
+y 
